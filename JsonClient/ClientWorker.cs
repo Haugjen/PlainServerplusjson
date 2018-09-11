@@ -17,13 +17,20 @@ namespace JsonClient
 
         public void Start()
         {
+            // create an object of the Car class
+            // NB! I have to 'Add a reference' to the dependencies to my ModelLib
             Car car = new Car("Tesla", "green", "JsonCar4");
 
+            // Create a conenction to the server
+            // and wrap the Stream into a more smooth StreamWriter, that can write string-lines 
             using (TcpClient socket = new TcpClient("localhost", serverPort))
-                //using (StreamReader sr = new StreamReader(socket.GetStream()))
             using (StreamWriter sw = new StreamWriter(socket.GetStream()))
             {
+                // Serialize my car object
+                // NB! I have to install the NuGet package newtonsoft.json 
                 String jsonStr = JsonConvert.SerializeObject(car);
+
+                // write the json-string to the socket-stream and flush the buffer
                 sw.WriteLine(jsonStr);
                 sw.Flush();
             }

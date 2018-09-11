@@ -40,8 +40,7 @@ namespace XmlServer
             using (StreamReader sr = new StreamReader(socket.GetStream()))
                 //using (StreamWriter sw = new StreamWriter(socket.GetStream()))
             {
-                string jsonLine = sr.ReadLine();
-
+                
                 XmlSerializer saleSerializer = new XmlSerializer(typeof(AutoSale));
                 AutoSale sale = (AutoSale)saleSerializer.Deserialize(sr);
                 
